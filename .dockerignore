@@ -1,0 +1,10 @@
+node_modules
+**/node_modules
+**/dist
+**/.venv
+backend/data
+backend/tests/__pycache__
+**/__pycache__
+.git
+.DS_Store
+*.md

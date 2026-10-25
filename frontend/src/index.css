@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+
+  /* Apple system palette (LIGHT warm neutrals) */
+  --bg: #f5f5f7;          /* apple.com canvas gray               */
+  --surface: #ffffff;
+  --text: #1d1d1f;        /* apple.com body text                 */
+  --text-2: #6e6e73;
+  --text-3: #86868b;
+  --hairline: rgba(0, 0, 0, 0.08);
+
+  --blue: #007aff;        /* iOS systemBlue  */
+  --blue-text: #0066cc;
+  --green: #34c759;
+  --green-text: #248a3d;
+  --red: #ff3b30;
+  --red-text: #d70015;
+  --orange: #ff9500;
+  --orange-text: #c93400;
+  --teal: #32ade6;
+  --indigo: #5856d6;
+  --gray: #8e8e93;
+  --fill-2: rgba(120, 120, 128, 0.12);   /* iOS systemGray6 quaternary fill */
+}
+
+html {
+  font: 100%/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+    "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+    "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* ------------------------------------------------- materials: white cards
+   Like macOS System Settings / Screen Time tiles: flat white, logical
+   radius, one soft ambient shadow, hairline edge. No stacked glass. */
+.card {
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  padding: 1.15rem 1.25rem;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 10px 28px -18px rgba(0, 0, 0, 0.16);
+}
+
+.kpi-value {
+  font-size: 1.7rem;
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.022em;   /* large type gets tightened */
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-unit {
+  font-size: 0.55em;
+  font-weight: 600;
+  margin-left: 0.2em;
+  color: var(--text-3);
+  letter-spacing: 0;
+}
+
+.kpi-label {
+  font-size: 0.78rem;
+  font-weight: 520;
+  letter-spacing: 0;
+  line-height: 1.3;
+  color: var(--text-3);
+}
+
+.page-title {
+  font-size: clamp(1.8rem, 3vw, 2.15rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.section-sub {
+  font-size: 0.95rem;
+  color: var(--text-2);
+  letter-spacing: -0.005em;
+}
+
+.chart-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.chart-hint {
+  font-size: 0.75rem;
+  color: var(--text-3);
+}
+
+/* ------------------------------------------------------- segmented control */
+.seg {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--fill-2);
+}
+.seg a {
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 0.82rem;
+  font-weight: 540;
+  color: var(--text);
+  transition: transform 120ms ease-out, box-shadow 160ms ease;
+}
+.seg a:hover {
+  background: rgba(120, 120, 128, 0.08);
+}
+.seg a.active {
+  background: #fff;
+  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.14), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+}
+.seg a:active {
+  transform: scale(0.96);
+}
+
+/* ------------------------------------------------------------------ chips */
+.chip {
+  cursor: pointer;
+  border-radius: 7px;
+  padding: 0.32rem 0.52rem;
+  font-size: 0.75rem;
+  font-weight: 590;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  transition: transform 100ms ease-out, filter 120ms ease;
+}
+.chip:hover {
+  filter: brightness(0.985);
+}
+.chip:active {
+  transform: scale(0.93);
+}
+button:focus-visible,
+a:focus-visible,
+input[type="range"]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.chip-active {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 122, 255, 0.35);
+}
+.chip-idle {
+  background: #e9e9eb;   /* systemGray5 */
+  color: #3a3a3c;
+}
+
+/* ------------------------------------------------------------------ range */
+input[type="range"] {
+  accent-color: var(--blue);
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+/* ------------------------------------------------------------------ tables */
+table.data {
+  width: 100%;
+  text-align: left;
+  font-size: 0.84rem;
+}
+table.data th {
+  padding: 0.5rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 560;
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--hairline);
+  text-transform: none;
+}
+table.data td {
+  padding: 0.52rem 0.65rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+table.data tbody tr:last-child td {
+  border-bottom: none;
+}
+table.data tbody tr:hover td {
+  background: rgba(120, 120, 128, 0.05);
+}
+table.data a {
+  color: var(--blue-text);
+  font-weight: 500;
+}
+table.data a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ motion */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.page-in {
+  animation: page-in 260ms ease-out 1;
+}
+
+.recharts-default-tooltip {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid var(--hairline) !important;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.18);
+  color: var(--text) !important;
+  font-size: 12.5px;
+}
+.recharts-surface {
+  overflow: visible;
+}
+
+/* ------------------------------------------------------------- a11y modes */
+@media (prefers-reduced-motion: reduce) {
+  .page-in {
+    animation: none;
+  }
+  .chip,
+  .seg a,
+  input[type="range"]::-webkit-slider-thumb,
+  a,
+  button {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-nav {
+    background: #ffffff;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .card,
+  .site-nav {
+    border-color: #a1a1a6;
+  }
+  .kpi-label,
+  .chart-hint,
+  table.data th {
+    color: #48484a;
+  }
+  body {
+    color: #000;
+  }
+}

@@ -1,0 +1,19 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# local data (ingested copies of public BMRS data are rebuilt on startup)
+backend/data/
+
+# node
+node_modules/
+frontend/dist/
+
+# os/editor
+.DS_Store
+
+# built SPA served by fastapi (rebaked at image build)
+backend/app/static/

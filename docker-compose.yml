@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8719:8000"
+    environment:
+      # keep the SQLite store at ./backend/data on the host (survives rebuilds)
+      DATA_DIR: ${DATA_DIR:-/app-data}
+      INGEST_ON_START: "1"
+    volumes:
+      - app-data:/app-data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request;urllib.request.urlopen('http://localhost:8000/api/health')",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 6
+      start_period: 90s
+
+volumes:
+  app-data:
