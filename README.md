@@ -154,16 +154,87 @@ the public BMRS API), which keeps the deployment stateless.
   so the portal lets planners compare "what we knew at 09:30 D-1" with the final revision
   to see how much of the gap is decision-time knowledge vs later information.
 
-## How-to-deploy (Heroku, from scratch)
+## How to Deploy to Vercel from Scratch
+
+### 1. Push the project to GitHub
 
 ```bash
-git init && git add . && git commit -m "wind assurance portal"
-heroku login
-heroku create <anom-name> --stack container
-heroku git:remote -a <anom-name>
-git push heroku main
-heroku open
+git init
+git add .
+git commit -m "Initial Wind Assurance Portal"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/wind-assurance-portal.git
+git push -u origin main
 ```
+
+Create a new repository on [GitHub](https://github.com/new) before adding the remote.
+
+### 2. Import the project into Vercel
+
+1. Visit [Vercel Dashboard](https://vercel.com/dashboard).
+2. Click **Add New → Project**.
+3. Import the `wind-assurance-portal` GitHub repository.
+4. Configure the build settings according to the repository structure.
+5. Add any required environment variables under **Environment Variables**.
+6. Click **Deploy**.
+
+### 3. Configure the frontend
+
+For a Vite-based React frontend, configure:
+
+- **Framework Preset:** Vite
+- **Root Directory:** `frontend`, if deploying the frontend separately
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+
+If the frontend and API are deployed together from the repository root, configure the build and routing appropriately in `vercel.json`.
+
+### 4. Configure the FastAPI backend
+
+Vercel supports Python serverless functions. To deploy the backend:
+
+1. Create a Vercel-compatible Python API entry point, such as `api/index.py`.
+2. Expose the FastAPI application through that entry point.
+3. Configure `vercel.json` to route `/api/*` requests to the appropriate Python function.
+4. Ensure Python dependencies are available to the deployed function.
+5. Test `/api/health` and the remaining API endpoints after deployment.
+
+**Important:** Vercel serverless functions do not provide persistent local SQLite storage or support unrestricted long-running ingestion jobs. For production, use a persistent external database and run ingestion through a scheduled job or separate worker. Alternatively, deploy the existing Docker-based FastAPI backend on a container host with persistent storage and host the frontend on Vercel.
+
+### 5. Deploy using the Vercel CLI
+
+Install the CLI and authenticate:
+
+```bash
+npm install -g vercel
+vercel login
+```
+
+From the configured project directory, deploy a preview:
+
+```bash
+vercel
+```
+
+Deploy to production:
+
+```bash
+vercel --prod
+```
+
+### 6. Verify the deployment
+
+After deployment, verify the following:
+
+- The homepage loads successfully.
+- `/api/health` returns a successful response.
+- `/api/data-status` reports the expected data status.
+- The Overview, Day View and Accuracy pages load correctly.
+- Forecast data and accuracy metrics are available.
+- The backend can access persistent data without relying on temporary deployment storage.
+
+**Live application:** https://wind-assurance-jiocjcxkg-karan-nagpals-projects-e24b1184.vercel.app/
+
 
 ## Development honesty: AI tools
 
