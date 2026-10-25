@@ -107,9 +107,9 @@ Environment variables (all optional): `DATA_DIR`, `INGEST_ON_START`, `ELEXON_BAS
 
 ## Deployment
 
-The app is deployed to **Heroku** (container stack via `heroku.yml`):
+The app is deployed to **Vercel** (container stack via `heroku.yml`):
 
-**Live app: <add your herokuapp.com URL here>** — see the How-to-deploy section below if
+**Live app: https://wind-assurance-jiocjcxkg-karan-nagpals-projects-e24b1184.vercel.app/** — see the How-to-deploy section below if
 you are re-deploying.
 
 ```bash
